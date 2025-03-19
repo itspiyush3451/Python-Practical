@@ -201,3 +201,50 @@ class Doctor:
 doc = Doctor()
 tab = Tablet()
 print(doc.prescribe(tab))
+
+# Task 6: OOP Concepts in Pharmaceuticals
+# Using Inheritance, Encapsulation, Abstraction, and Polymorphism
+
+from abc import ABC, abstractmethod
+
+# Abstract class for drug formulations demonstrating Abstraction
+class DrugFormulation(ABC):
+    def __init__(self, name, dosage, manufacturer):
+        self._name = name  # Encapsulation: Protecting sensitive drug data
+        self._dosage = dosage
+        self._manufacturer = manufacturer
+
+    @abstractmethod
+    def administer(self):
+        pass
+
+    def get_info(self):
+        return f"{self._name} ({self._dosage}) by {self._manufacturer}"
+
+# Tablet class inherits from DrugFormulation
+class Tablet(DrugFormulation):
+    def administer(self):
+        return f"Administer {self._name} tablet orally with water."
+
+# Capsule class inherits from DrugFormulation
+class Capsule(DrugFormulation):
+    def administer(self):
+        return f"Administer {self._name} capsule with warm water."
+
+# Injection class inherits from DrugFormulation
+class Injection(DrugFormulation):
+    def administer(self):
+        return f"Administer {self._name} injection intravenously."
+
+# Doctor class prescribing different drug formulations
+def prescribe_drug(drug: DrugFormulation):
+    return drug.administer()
+
+# Testing polymorphism with different drug types
+tablet = Tablet("Paracetamol", "500mg", "PharmaCorp")
+capsule = Capsule("Amoxicillin", "250mg", "MediHealth")
+injection = Injection("Insulin", "10ml", "BioCare")
+
+print(prescribe_drug(tablet))
+print(prescribe_drug(capsule))
+print(prescribe_drug(injection))
